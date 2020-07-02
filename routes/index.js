@@ -43,6 +43,11 @@ module.exports = (app, passport) => {
     authenticateAdmin,
     adminController.postRestaurant
   );
+  app.get(
+    "/admin/restaurants/:id",
+    authenticateAdmin,
+    adminController.getRestaurant
+  );
 
   //註冊路由
   app.get("/signup", userController.signUpPage);
