@@ -33,6 +33,16 @@ module.exports = (app, passport) => {
     authenticateAdmin,
     adminController.getRestaurants
   );
+  app.get(
+    "/admin/restaurants/create",
+    authenticateAdmin,
+    adminController.createRestaurant
+  );
+  app.post(
+    "/admin/restaurants",
+    authenticateAdmin,
+    adminController.postRestaurant
+  );
 
   //註冊路由
   app.get("/signup", userController.signUpPage);
