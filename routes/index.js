@@ -58,6 +58,11 @@ module.exports = (app, passport) => {
     authenticateAdmin,
     adminController.putRestaurant
   );
+  app.delete(
+    "/admin/restaurants/:id",
+    authenticateAdmin,
+    adminController.deleteRestaurant
+  );
 
   //註冊路由
   app.get("/signup", userController.signUpPage);
