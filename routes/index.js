@@ -1,6 +1,8 @@
 const restController = require("../controllers/restController.js");
 const adminController = require("../controllers/adminController");
 const userController = require("../controllers/userController");
+const multer = require("multer");
+const upload = multer({ dest: "temp/" });
 
 module.exports = (app, passport) => {
   //身分驗證middleware
@@ -41,6 +43,7 @@ module.exports = (app, passport) => {
   app.post(
     "/admin/restaurants",
     authenticateAdmin,
+    upload.single("image"),
     adminController.postRestaurant
   );
   app.get(
@@ -56,6 +59,7 @@ module.exports = (app, passport) => {
   app.put(
     "/admin/restaurants/:id",
     authenticateAdmin,
+    upload.single("image"),
     adminController.putRestaurant
   );
   app.delete(
