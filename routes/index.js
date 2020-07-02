@@ -48,6 +48,16 @@ module.exports = (app, passport) => {
     authenticateAdmin,
     adminController.getRestaurant
   );
+  app.get(
+    "/admin/restaurants/:id/edit",
+    authenticateAdmin,
+    adminController.editRestaurant
+  );
+  app.put(
+    "/admin/restaurants/:id",
+    authenticateAdmin,
+    adminController.putRestaurant
+  );
 
   //註冊路由
   app.get("/signup", userController.signUpPage);
