@@ -9,6 +9,10 @@ const passport = require("./config/passport");
 const methodOverride = require("method-override");
 const port = process.env.PORT || 3000;
 
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.engine("handlebars", handlebars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
