@@ -31,41 +31,60 @@ module.exports = (app, passport) => {
     res.redirect("/admin/restaurants")
   );
   app.get(
+    // 顯示餐廳
     "/admin/restaurants",
     authenticateAdmin,
     adminController.getRestaurants
   );
   app.get(
+    // 建立餐廳頁面
     "/admin/restaurants/create",
     authenticateAdmin,
     adminController.createRestaurant
   );
   app.post(
+    // 建立餐廳
     "/admin/restaurants",
     authenticateAdmin,
     upload.single("image"),
     adminController.postRestaurant
   );
   app.get(
+    // 顯示個別餐廳
     "/admin/restaurants/:id",
     authenticateAdmin,
     adminController.getRestaurant
   );
   app.get(
+    // 顯示餐廳編輯頁面
     "/admin/restaurants/:id/edit",
     authenticateAdmin,
     adminController.editRestaurant
   );
   app.put(
+    // 編輯餐廳
     "/admin/restaurants/:id",
     authenticateAdmin,
     upload.single("image"),
     adminController.putRestaurant
   );
   app.delete(
+    //刪除餐廳
     "/admin/restaurants/:id",
     authenticateAdmin,
     adminController.deleteRestaurant
+  );
+  app.get(
+    //顯示使用者
+    "/admin/users",
+    authenticateAdmin,
+    adminController.getUser
+  );
+  app.put(
+    // 修改使用者權限
+    "/admin/users/:id/authority",
+    authenticateAdmin,
+    adminController.putUsers
   );
 
   //註冊路由
