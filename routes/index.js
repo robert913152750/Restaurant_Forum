@@ -82,7 +82,7 @@ module.exports = (app, passport) => {
   );
   app.put(
     // 修改使用者權限
-    "/admin/users/:id/authority",
+    "/admin/users/:id",
     authenticateAdmin,
     adminController.putUsers
   );
