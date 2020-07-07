@@ -79,7 +79,7 @@ const adminController = {
       nest: true,
     }).then((categories) => {
       return Restaurant.findByPk(req.params.id).then((restaurant) => {
-        return res.render("./admin/create", {
+        return res.render("admin/create", {
           categories: categories,
           restaurant: restaurant.toJSON(),
         });
