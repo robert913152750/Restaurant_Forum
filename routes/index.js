@@ -1,6 +1,7 @@
 const restController = require("../controllers/restController.js");
 const adminController = require("../controllers/adminController");
 const userController = require("../controllers/userController");
+const categoryController = require("../controllers/categoryController");
 const multer = require("multer");
 const upload = multer({ dest: "temp/" });
 
@@ -85,6 +86,13 @@ module.exports = (app, passport) => {
     "/admin/users/:id",
     authenticateAdmin,
     adminController.putUsers
+  );
+
+  app.get(
+    //瀏覽分類
+    "/admin/categories",
+    authenticateAdmin,
+    categoryController.getCategories
   );
 
   //註冊路由
