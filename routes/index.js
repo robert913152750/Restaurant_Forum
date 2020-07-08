@@ -95,6 +95,13 @@ module.exports = (app, passport) => {
     categoryController.getCategories
   );
 
+  app.post(
+    //新增分類
+    "/admin/categories",
+    authenticateAdmin,
+    categoryController.postCategory
+  );
+
   //註冊路由
   app.get("/signup", userController.signUpPage);
   app.post("/signup", userController.signUp);
