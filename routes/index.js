@@ -2,6 +2,7 @@ const restController = require("../controllers/restController.js");
 const adminController = require("../controllers/adminController");
 const userController = require("../controllers/userController");
 const categoryController = require("../controllers/categoryController");
+const commentController = require("../controllers/commentController");
 const multer = require("multer");
 const upload = multer({ dest: "temp/" });
 
@@ -36,6 +37,12 @@ module.exports = (app, passport) => {
     "/restaurants/:id",
     authenticated,
     restController.getRestaurant
+  );
+  app.post(
+    //新增評論
+    "/comments",
+    authenticated,
+    commentController.postComment
   );
 
   //後台路由
