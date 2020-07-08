@@ -87,19 +87,28 @@ module.exports = (app, passport) => {
     authenticateAdmin,
     adminController.putUsers
   );
-
   app.get(
     //瀏覽分類
     "/admin/categories",
     authenticateAdmin,
     categoryController.getCategories
   );
-
   app.post(
     //新增分類
     "/admin/categories",
     authenticateAdmin,
     categoryController.postCategory
+  );
+  app.get(
+    //編輯分類頁面
+    "/admin/categories/:id",
+    authenticateAdmin,
+    categoryController.getCategories
+  );
+  app.put(
+    "/admin/categories/:id",
+    authenticateAdmin,
+    categoryController.putCategory
   );
 
   //註冊路由
