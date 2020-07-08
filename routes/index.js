@@ -106,9 +106,16 @@ module.exports = (app, passport) => {
     categoryController.getCategories
   );
   app.put(
+    //編輯分類
     "/admin/categories/:id",
     authenticateAdmin,
     categoryController.putCategory
+  );
+  app.delete(
+    //刪除分類
+    "/admin/categories/:id",
+    authenticateAdmin,
+    categoryController.deleteCategory
   );
 
   //註冊路由

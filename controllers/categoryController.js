@@ -1,4 +1,5 @@
 const db = require("../models");
+const category = require("../models/category");
 const Category = db.Category;
 let categoryController = {
   getCategories: (req, res) => {
@@ -41,6 +42,13 @@ let categoryController = {
         });
       });
     }
+  },
+  deleteCategory: (req, res) => {
+    return Category.findByPk(req.params.id).then((category) => {
+      category.destroy().then((category) => {
+        res.redirect("/admin/categories");
+      });
+    });
   },
 };
 
