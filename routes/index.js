@@ -44,6 +44,12 @@ module.exports = (app, passport) => {
     authenticated,
     commentController.postComment
   );
+  app.delete(
+    //刪除評論(限管理員)
+    "/comments/:id",
+    authenticateAdmin,
+    commentController.deleteComment
+  );
 
   //後台路由
   app.get("/admin", authenticateAdmin, (req, res) =>

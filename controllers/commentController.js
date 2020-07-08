@@ -11,6 +11,14 @@ let commentController = {
       res.redirect(`/restaurants/${req.body.restaurantId}`);
     });
   },
+  //刪除評論(限管理員)
+  deleteComment: (req, res) => {
+    return Comment.findByPk(req.params.id).then((comment) => {
+      comment.destroy().then((comment) => {
+        res.redirect(`/restaurants/${comment.RestaurantId}`);
+      });
+    });
+  },
 };
 
 module.exports = commentController;
