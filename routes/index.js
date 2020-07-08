@@ -25,7 +25,18 @@ module.exports = (app, passport) => {
 
   //前台路由
   app.get("/", authenticated, (req, res) => res.redirect("/restaurants"));
-  app.get("/restaurants", authenticated, restController.getRestaurants);
+  app.get(
+    //瀏覽全部餐廳
+    "/restaurants",
+    authenticated,
+    restController.getRestaurants
+  );
+  app.get(
+    //瀏覽個別餐廳
+    "/restaurants/:id",
+    authenticated,
+    restController.getRestaurant
+  );
 
   //後台路由
   app.get("/admin", authenticateAdmin, (req, res) =>
