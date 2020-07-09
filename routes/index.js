@@ -33,6 +33,12 @@ module.exports = (app, passport) => {
     restController.getRestaurants
   );
   app.get(
+    //瀏覽最新動態
+    "/restaurants/feeds",
+    authenticated,
+    restController.getFeeds
+  );
+  app.get(
     //瀏覽個別餐廳
     "/restaurants/:id",
     authenticated,
