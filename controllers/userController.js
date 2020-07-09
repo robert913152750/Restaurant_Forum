@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const db = require("../models");
+const user = require("../models/user");
 const User = db.User;
 
 const userController = {
@@ -47,6 +48,13 @@ const userController = {
     req.flash("success_messages", "登出成功");
     req.logout();
     res.redirect("/signin");
+  },
+  getUser: (req, res) => {
+    return User.findByPk(req.params.id).then((user) => {
+      return res.render("userProfile", {
+        user: user.toJSON(),
+      });
+    });
   },
 };
 

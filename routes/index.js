@@ -50,6 +50,12 @@ module.exports = (app, passport) => {
     authenticateAdmin,
     commentController.deleteComment
   );
+  app.get(
+    //瀏覽帳戶資料
+    "/users/:id",
+    authenticated,
+    userController.getUser
+  );
 
   //後台路由
   app.get("/admin", authenticateAdmin, (req, res) =>
