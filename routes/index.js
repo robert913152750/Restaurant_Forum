@@ -56,6 +56,19 @@ module.exports = (app, passport) => {
     authenticated,
     userController.getUser
   );
+  app.get(
+    //編輯帳戶頁面
+    "/users/:id/edit",
+    authenticated,
+    userController.editUser
+  );
+  app.put(
+    //編輯帳戶
+    "/users/:id",
+    authenticated,
+    upload.single("image"),
+    userController.putUser
+  );
 
   //後台路由
   app.get("/admin", authenticateAdmin, (req, res) =>
