@@ -36,12 +36,16 @@ let restController = {
       const data = result.rows.map((r) => ({
         ...r.dataValues,
         description: r.dataValues.description.substring(0, 50),
+        isFavorited: req.user.FavoritedRestaurants.map((d) => d.id).includes(
+          r.id
+        ),
         categoryName: r.Category.name,
       }));
       Category.findAll({
         raw: true,
         nest: true,
       }).then((categories) => {
+        console.log(data);
         return res.render("restaurants", {
           restaurants: data,
           categories: categories,
@@ -57,11 +61,19 @@ let restController = {
   //瀏覽餐廳個別資料
   getRestaurant: (req, res) => {
     return Restaurant.findByPk(req.params.id, {
-      include: [Category, { model: Comment, include: [User] }],
+      include: [
+        Category,
+        { model: Comment, include: [User] },
+        { model: User, as: "FavoritedUsers" },
+      ],
     }).then((restaurant) => {
+      const isFavorited = restaurant.FavoritedUsers.map((d) => d.id).includes(
+        req.user.id
+      );
       restaurant.increment("viewCount");
       return res.render("restaurant", {
         restaurant: restaurant.toJSON(),
+        isFavorited: isFavorited,
       });
     });
   },
