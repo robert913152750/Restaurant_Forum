@@ -81,6 +81,18 @@ module.exports = (app, passport) => {
     authenticated,
     restController.getDashboard
   );
+  app.post(
+    //新增我的最愛
+    "/favorite/:restaurantId",
+    authenticated,
+    userController.addFavorite
+  );
+  app.delete(
+    //移除我的最愛
+    "/favorite/:restaurantId",
+    authenticated,
+    userController.removeFavorite
+  );
 
   //後台路由
   app.get("/admin", authenticateAdmin, (req, res) =>
