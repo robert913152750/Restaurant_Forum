@@ -64,6 +64,7 @@ let restController = {
       });
     });
   },
+  //瀏覽最新動態
   getFeeds: (req, res) => {
     return Restaurant.findAll({
       limit: 10,
@@ -83,6 +84,20 @@ let restController = {
           restaurants: restaurants,
           comments: comments,
         });
+      });
+    });
+  },
+  //瀏覽餐廳看板
+  getDashboard: (req, res) => {
+    return Restaurant.findByPk(req.params.id, {
+      include: [Comment, Category],
+    }).then((restaurant) => {
+      let results = restaurant.toJSON();
+      console.log(results);
+      const commentAmount = results.Comments.length;
+      return res.render("dashboard", {
+        results: results,
+        commentAmount: commentAmount,
       });
     });
   },

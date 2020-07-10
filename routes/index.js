@@ -75,6 +75,12 @@ module.exports = (app, passport) => {
     upload.single("image"),
     userController.putUser
   );
+  app.get(
+    //瀏覽餐廳看板
+    "/restaurants/:id/dashboard",
+    authenticated,
+    restController.getDashboard
+  );
 
   //後台路由
   app.get("/admin", authenticateAdmin, (req, res) =>
