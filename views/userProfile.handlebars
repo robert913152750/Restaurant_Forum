@@ -2,14 +2,19 @@
   <div class="row">
     <div class="col-md-12"></div>
     <div class="col-md-4">
-      <img class="img-responsive center-block" src="{{user.image}}" style="width: 250px;margin-bottom: 25px;">
+      <img class="img-responsive center-block" src="{{results.image}}" style="width: 250px;margin-bottom: 25px;">
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h2 class="card-title">{{user.name}}</h2>
-        <p class="card-text">{{user.email}}</p>
+        <h2 class="card-title">{{results.name}}</h2>
+        <p class="card-text">{{results.email}}</p>
         <p class="card-text">{{resCount}}則已評論餐廳</p>
-        <a class="btn btn-primary" href="/users/{{user.id}}/edit">Edit</a>
+        {{#ifCond userPageId passportUser}}
+        <a class="btn btn-primary" href="/users/{{results.id}}/edit">Edit</a>
+        {{else}}
+        <a class="btn btn-secondary disabled" href="/users/{{results.id}}/edit" tabindex="-1" role="button"
+          aria-disabled="true">Edit</a>
+        {{/ifCond}}
       </div>
     </div>
   </div>
@@ -19,7 +24,7 @@
     <strong class="card-title">{{resCount}}則已評論餐廳</strong>
   </div>
   <div class="card-body">
-    {{#each user.Comments}}
+    {{#each results.Comments}}
     <a href="/restaurants/{{this.Restaurant.id}}"><img src="{{this.Restaurant.image}}" alt=""
         style="width:75px;height:75px"></a>
     {{/each}}

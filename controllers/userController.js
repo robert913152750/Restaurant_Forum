@@ -55,20 +55,18 @@ const userController = {
     res.redirect("/signin");
   },
   getUser: (req, res) => {
-    if (req.params.id == req._passport.session.user) {
-      return User.findByPk(req.params.id, {
-        include: [{ model: Comment, include: [Restaurant] }],
-      }).then((user) => {
-        let results = user.toJSON();
-        let resCount = user.Comments.length;
-        return res.render("userProfile", {
-          user: results,
-          resCount: resCount,
-        });
+    return User.findByPk(req.params.id, {
+      include: [{ model: Comment, include: [Restaurant] }],
+    }).then((user) => {
+      let results = user.toJSON();
+      let resCount = user.Comments.length;
+      return res.render("userProfile", {
+        userPageId: req.params.id.toString(),
+        passportUser: req._passport.session.user.toString(),
+        results: results,
+        resCount: resCount,
       });
-    } else {
-      return res.redirect(`/users/${req._passport.session.user}`);
-    }
+    });
   },
   editUser: (req, res) => {
     if (req.params.id == req._passport.session.user) {
@@ -78,7 +76,11 @@ const userController = {
         });
       });
     } else {
-      return res.redirect(`/users/${req._passport.session.user}`);
+      req.flash(
+        "error_messages",
+        "You don't have the authority to do this action "
+      );
+      return res.redirect("back");
     }
   },
   putUser: (req, res) => {
