@@ -3,6 +3,7 @@ const Restaurant = db.Restaurant;
 const Category = db.Category;
 const Comment = db.Comment;
 const User = db.User;
+const Like = db.Like;
 const pageLimit = 10;
 
 let restController = {
@@ -39,6 +40,7 @@ let restController = {
         isFavorited: req.user.FavoritedRestaurants.map((d) => d.id).includes(
           r.id
         ),
+        isLiked: req.user.LikedRestaurants.map((d) => d.id).includes(r.id),
         categoryName: r.Category.name,
       }));
       Category.findAll({
@@ -65,15 +67,20 @@ let restController = {
         Category,
         { model: Comment, include: [User] },
         { model: User, as: "FavoritedUsers" },
+        { model: User, as: "LikedUsers" },
       ],
     }).then((restaurant) => {
       const isFavorited = restaurant.FavoritedUsers.map((d) => d.id).includes(
+        req.user.id
+      );
+      const isLiked = restaurant.LikedUsers.map((d) => d.id).includes(
         req.user.id
       );
       restaurant.increment("viewCount");
       return res.render("restaurant", {
         restaurant: restaurant.toJSON(),
         isFavorited: isFavorited,
+        isLiked: isLiked,
       });
     });
   },

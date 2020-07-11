@@ -93,6 +93,18 @@ module.exports = (app, passport) => {
     authenticated,
     userController.removeFavorite
   );
+  app.post(
+    //加入like
+    "/like/:restaurantId",
+    authenticated,
+    userController.addLike
+  );
+  app.delete(
+    //刪除like
+    "/like/:restaurantId",
+    authenticated,
+    userController.removeLike
+  );
 
   //後台路由
   app.get("/admin", authenticateAdmin, (req, res) =>
