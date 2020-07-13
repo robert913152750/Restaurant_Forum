@@ -212,6 +212,7 @@ const userController = {
         isFavorited: req.user.FavoritedRestaurants.map((d) => d.id).includes(
           restaurant.id
         ),
+        shortDescription: restaurant.dataValues.description.substring(0, 50),
       }));
       restaurants = restaurants.sort(
         (a, b) => b.FavoriteCount - a.FavoriteCount
