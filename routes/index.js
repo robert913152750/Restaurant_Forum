@@ -59,6 +59,13 @@ module.exports = (app, passport) => {
   );
 
   app.get(
+    //瀏覽top餐廳
+    "/restaurants/top",
+    authenticated,
+    userController.getTopRestaurants
+  );
+
+  app.get(
     //瀏覽個別餐廳
     "/restaurants/:id",
     authenticated,

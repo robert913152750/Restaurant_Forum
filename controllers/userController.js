@@ -9,6 +9,7 @@ const Like = db.Like;
 const Followship = db.Followship;
 const fs = require("fs");
 const imgur = require("imgur-node-api");
+const category = require("../models/category");
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID;
 
 const userController = {
@@ -188,7 +189,6 @@ const userController = {
       return res.redirect("back");
     });
   },
-
   removeFollowing: (req, res) => {
     return Followship.findOne({
       where: {
@@ -199,6 +199,25 @@ const userController = {
       followship.destroy().then((followship) => {
         return res.redirect("back");
       });
+    });
+  },
+  getTopRestaurants: (req, res) => {
+    Restaurant.findAll({
+      limit: 10,
+      include: [{ model: User, as: "FavoritedUsers" }],
+    }).then((restaurants) => {
+      restaurants = restaurants.map((restaurant) => ({
+        ...restaurant.dataValues,
+        FavoriteCount: restaurant.FavoritedUsers.length,
+        isFavorited: req.user.FavoritedRestaurants.map((d) => d.id).includes(
+          restaurant.id
+        ),
+      }));
+      restaurants = restaurants.sort(
+        (a, b) => b.FavoriteCount - a.FavoriteCount
+      );
+      console.log(restaurants);
+      return res.render("topRestaurant", { restaurants: restaurants });
     });
   },
 };
