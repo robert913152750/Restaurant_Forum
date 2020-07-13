@@ -44,6 +44,20 @@ module.exports = (app, passport) => {
     authenticated,
     userController.getTopUser
   );
+  app.post(
+    //追蹤美食達人
+    "/following/:userId",
+    authenticated,
+    userController.addFollowing
+  );
+
+  app.delete(
+    //取消追蹤美食達人
+    "/following/:userId",
+    authenticated,
+    userController.removeFollowing
+  );
+
   app.get(
     //瀏覽個別餐廳
     "/restaurants/:id",
