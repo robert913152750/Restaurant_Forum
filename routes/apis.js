@@ -14,5 +14,11 @@ router.post(
   upload.single("image"),
   adminController.postRestaurant
 );
+router.put(
+  // 編輯餐廳
+  "/admin/restaurants/:id",
+  upload.single("image"),
+  adminController.putRestaurant
+);
 
 module.exports = router;
