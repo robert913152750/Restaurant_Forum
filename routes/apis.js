@@ -20,5 +20,10 @@ router.put(
   upload.single("image"),
   adminController.putRestaurant
 );
+router.post(
+  //新增分類
+  "/admin/categories",
+  categoryController.postCategory
+);
 
 module.exports = router;
