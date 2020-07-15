@@ -25,5 +25,10 @@ router.post(
   "/admin/categories",
   categoryController.postCategory
 );
+router.put(
+  //編輯分類
+  "/admin/categories/:id",
+  categoryController.putCategory
+);
 
 module.exports = router;
