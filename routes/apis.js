@@ -30,5 +30,10 @@ router.put(
   "/admin/categories/:id",
   categoryController.putCategory
 );
+router.delete(
+  //刪除分類
+  "/admin/categories/:id",
+  categoryController.deleteCategory
+);
 
 module.exports = router;
